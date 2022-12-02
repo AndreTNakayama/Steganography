@@ -1,12 +1,12 @@
 #ifndef TYPES_H
 #define TYPES_H
 
-/* User defined types */
+/* Define Types */
 typedef unsigned int uint;
 typedef unsigned char uchar;
 typedef unsigned char* uchar_ptr;
 
-/* Status will be used in fn. return type */
+/* Status será usado no fn. Retorna type */
 typedef enum
 {
     falha,
@@ -16,7 +16,7 @@ typedef enum
 typedef enum
 {
     codificar,
-    decidificar,
+    decodificar,
     erro
 } OperationType;
 

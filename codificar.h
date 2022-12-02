@@ -1,15 +1,10 @@
 #ifndef ENCODE_H
 #define ENCODE_H
 
-#include "types.h" // Contains user defined types
+#include "types.h"
 #include "header.h"
 
-/* 
- * Structure to store information required for
- * encoding & decoding secret file to/from image file
- * Info about output and intermediate data is
- * also stored
- */
+// Informação necessaria para codificar e decodificar
 
 #define FILENAME_SIZE   	50
 #define FILE_SUFFIX     	4
@@ -29,60 +24,56 @@ typedef struct _EncodeInfo
     uint tamanho_msg_extensao;
     FILE *ptf_imagem_retorno;
     uchar nome_imagem_retorno[FILENAME_SIZE];
-    /*Decoded File Info */
-    FILE* fptr_decoded_file;
-    uchar decoded_fname[FILENAME_SIZE];
+    FILE* ptr_decodificar_arquivo;
+    uchar nome_arquivo_decodificar[FILENAME_SIZE];
 } EncodeInfo;
 
-/* Check operation type */
+/* Verifica o tipo da operação */
 OperationType check_operation_type(char *argv[]);
 
-/* Read and validate Encode args from argv */
+/* Le e valida os argumentos para codificar */
 Status read_and_validate_bmp_format(char *argv[]);
 
-/* Digit check in passcode */
-Status no_digits(const char* str);
-
-/* Perform encoding */
+/* Executa a codificação */
 Status do_encoding(EncodeInfo *encInfo);
 
-/* Perform decoding */
+/* Executa a decodificação */
 Status do_decoding(EncodeInfo *encInfo);
 
-/* Get File pointers for i/p and o/p files */
+/* Pega os ponteiros dos arquivos */
 Status open_files(EncodeInfo *encInfo);
 
-/* check capacity */
+/* Verificar tamanho */
 Status check_capacity(EncodeInfo *encInfo);
 
-/* Get image size */
+/* Pegar tamanho da imagem */
 uint get_image_size_for_bmp(FILE *fptr_image);
 
-/* Get file size */
+/* Pegar tamanho do arquivo */
 uint get_file_size(FILE *fptr);
 
-/* Copy bmp image header */
+/* Copiar o cabeçalho da imagem */
 Status copy_bmp_header(FILE *fptr_src_image, FILE *fptr_dest_image);
 
-/* Encode Magic String */
+/* Codifica a magic string */
 Status encode_magic_string(const char *magic_string, EncodeInfo *encInfo);
 
-/* Encode secret file extenstion */
+/* Codifica a extensão do arquivo da mensagem */
 Status encode_int_size_expression(uint len, EncodeInfo *encInfo);
 
-/* Copy remaining image bytes from src to stego image after encoding */
+/* Copia os bytes restantes do src para a imagem de destino depois de codificar */
 Status copy_remaining_image_data(FILE *fptr_src, FILE *fptr_dest, uint f_size);
 
-/* Decode magic string */
+/* Decodifica a magic string */
 uchar_ptr decode_magic_string(uint size, EncodeInfo *encInfo);
 
-/* Decode int size expression */
+/* Decodificar o tamanho */
 uint decode_int_size_expression(EncodeInfo *encInfo);
 
-/* Read, validate and extract secret file extension */
+/* Ler, validar e extrair a extensão do arquivo escondido */
 Status read_and_validate_extn(uchar_ptr sec_file_name_holder, EncodeInfo *encInfo);
 
-/* Decode secret file data */
+/* Decodificar a mensagem escondida */
 Status decode_file_data(uint f_size, EncodeInfo *encInfo);
 
 #endif
