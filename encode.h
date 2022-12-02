@@ -2,7 +2,7 @@
 #define ENCODE_H
 
 #include "types.h" // Contains user defined types
-#include "common.h"
+#include "header.h"
 
 /* 
  * Structure to store information required for
@@ -11,35 +11,28 @@
  * also stored
  */
 
-#define MAX_FILENAME_SIZE   50
-#define MAX_FILE_SUFFIX     4
-#define MAX_PASSCODE_LEN    4
+#define FILENAME_SIZE   	50
+#define FILE_SUFFIX     	4
 #define INT_SIZE            sizeof(int)
 #define CHAR_SIZE           sizeof(char)
 
 typedef struct _EncodeInfo
 {
-    uchar passcode[MAX_PASSCODE_LEN];
-    /* Source Image info */
-    FILE *fptr_src_image;
-    uchar src_image_fname[MAX_FILENAME_SIZE];
-    uint image_capacity;
-    /* Secret File Info */
-    FILE *fptr_secret;
-    uchar secret_fname[MAX_FILENAME_SIZE];
-    uchar extn_secret_file[MAX_FILE_SUFFIX + CHAR_SIZE];
-    uint size_secret_file;
-    uint magic_string_size;
-    uint secret_extn_len;
-    /* Stego Image Info */
-    FILE *fptr_stego_image;
-    uchar stego_image_fname[MAX_FILENAME_SIZE];
+    FILE *ptf_imagem_origem;
+    uchar nome_imagem_origem[FILENAME_SIZE];
+    uint tamanho_imagem;
+    FILE *ptr_mensagem;
+    uchar mensagem_arquivo[FILENAME_SIZE];
+    uchar mensagem_extensao[FILE_SUFFIX + CHAR_SIZE];
+    uint tamanho_mensagem;
+    uint tamanho_magic_string;
+    uint tamanho_msg_extensao;
+    FILE *ptf_imagem_retorno;
+    uchar nome_imagem_retorno[FILENAME_SIZE];
     /*Decoded File Info */
     FILE* fptr_decoded_file;
-    uchar decoded_fname[MAX_FILENAME_SIZE];
+    uchar decoded_fname[FILENAME_SIZE];
 } EncodeInfo;
-
-/* Function prototypes */
 
 /* Check operation type */
 OperationType check_operation_type(char *argv[]);

@@ -9,15 +9,15 @@ typedef unsigned char* uchar_ptr;
 /* Status will be used in fn. return type */
 typedef enum
 {
-    e_failure,
-	e_success
+    falha,
+	sucesso
 } Status;
 
 typedef enum
 {
-    e_encode,
-    e_decode,
-    e_unsupported
+    codificar,
+    decidificar,
+    erro
 } OperationType;
 
 #endif
