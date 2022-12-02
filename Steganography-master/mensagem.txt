@@ -1,0 +1,2 @@
+TEXTO SECRETO
+Este é o conteúdo que deve ficar escondindo dentro da imagem. 
